@@ -2,8 +2,8 @@
 
 class Database
 {
-    
-    public function connect(): object
+
+    private function connect(): object
     {
         $conn_str = DB_DRIVER . ":hostname=" . DB_HOST . ";dbname=" . DB_NAME;
         try {
@@ -31,7 +31,7 @@ class Database
         return 0;
     }
 
-    public function get(string $sql, array $params = [], int $fetch_type = PDO::FETCH_OBJ): array|bool
+    public function get(string $sql, array $params = [], int $fetch_type = PDO::FETCH_OBJ): array|object|bool
     {
         $conn = $this->connect();
         $stmt = $conn->prepare($sql);
@@ -54,17 +54,16 @@ class Database
         return $this->ddl("ALTER TABLE `$table` AUTO_INCREMENT=$new_id");
     }
 
-    public function ddl(string $sql): mixed
+    public function ddl(string $sql, array $data = []): mixed
     {
         $conn = $this->connect();
         $stmt = $conn->prepare($sql);
-        try{
-            $stmt->execute();
+        try {
+            $stmt->execute($data);
             return true;
-        }catch(PDOException $e){
+        } catch (PDOException $e) {
             print "Error: " . $e->getMessage();
             return false;
         }
     }
-
 }

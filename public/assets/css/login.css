@@ -12,7 +12,52 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  position: relative;
 }
+
+.popup-box{
+    position: absolute;
+    top: 30px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 0.8em 1em;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255, 30%);
+    opacity: 0;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 1;
+    transition: opacity 2s, backdrop-filter 1s;
+    will-change: opacity, backdrop-filter, visibility;
+}
+
+.popup-box:hover{
+    opacity: 1;
+}
+
+.popup-close{
+    font-family: 'Rubik', sans-serif;
+    font-weight: 300;
+    color: rgb(0, 0, 0, 60%);
+    padding: 0.2em 0.5em;
+    background-color: rgb(255, 255, 255, 30%);
+    border-radius: 50%;
+    position: absolute;
+    left: 10px;
+    cursor: default;
+    z-index: 10;
+}
+
+.popup-msg{
+    font-family: 'Rubik', sans-serif;
+    padding-left: 30px;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -35,6 +80,15 @@ body {
   overflow: hidden;
   transition: height 0.5s ease-in-out;
 }
+
+.box.login{
+    height: 40em;
+}
+
+.box.register{
+    height: 48em;
+}
+
 .box-login {
   position: absolute;
   width: 85%;
@@ -45,16 +99,34 @@ body {
   transform: translateX(0);
   transition: transform 0.5s ease-in-out;
 }
-.box-register {
-  position: absolute;
-  width: 85%;
-  right: 0;
-  left: 0;
-  margin-left: auto;
-  margin-right: auto;
-  transform: translateX(110%);
-  transition: transform 0.5s ease-in-out;
+
+.box.login .box-login {
+    transform: translateX(0);
 }
+
+.box.register .box-login {
+    transform: translateX(-110%);
+}
+
+.box-register {
+    position: absolute;
+    width: 85%;
+    right: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateX(110%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.box.login .box-register {
+    transform: translateX(110%);
+}
+
+.box.register .box-register {
+    transform: translateX(0);
+}
+
 .top-header {
   text-align: center;
   margin: 2em 0;
@@ -85,11 +157,14 @@ body {
 
 .input-group {
   width: 100%;
+  position: relative;
 }
+
 .input-field {
   margin: 12px 0;
   position: relative;
 }
+
 .input-box {
   font-size: 15px;
   width: 100%;
@@ -102,11 +177,17 @@ body {
   backdrop-filter: blur(2px);
   outline: none;
 }
+
+.input-field:has(.text-error) > .input-box{
+    border: 1px solid rgb(198, 19, 19);
+}
+
 .input-field label {
   position: absolute;
   left: 20px;
   transition: 0.3s ease-in-out;
 }
+
 .input-box:not(:placeholder-shown) ~ label,
 .input-box:focus ~ label {
     top: 2px !important;
@@ -122,8 +203,17 @@ body {
 .input-box:focus:valid ~ label {
   color: #087211;
 }
+
 .input-box:focus:invalid ~ label {
   color: #c12828;
+}
+
+.text-error{
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+    font-size: 12px;
+    color: rgb(198, 19, 19);
 }
 
 .eye-area {
@@ -228,6 +318,14 @@ i {
   border-radius: 10px;
   box-shadow: 2px 0px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.5s ease-in-out;
+}
+
+.box.login .switch-active {
+    transform: translateX(-50%);
+}
+
+.box.register .switch-active {
+    transform: translateX(50%);
 }
 
 @media (min-width: 26em) {
