@@ -5,12 +5,12 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="<?= ROOT ?>/assets/vendor/img/logo.png" alt=""></a>
+                            <a href="<?= ROOT ?>"><img src="<?= ROOT ?>/assets/img/logo/<?= APP_LOGO ?>" alt="<?= APP_NAME ?>"></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
-                            <li>Email: hello@colorlib.com</li>
+                            <li>Address: <?= APP_ADDRESS ?></li>
+                            <li>Phone: <?= APP_TEL ?></li>
+                            <li>Email: <?= APP_EMAIL ?></li>
                         </ul>
                     </div>
                 </div>
@@ -56,11 +56,11 @@
                 <div class="col-lg-12">
                     <div class="footer__copyright">
                         <div class="footer__copyright__text">
-                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            <p>
                                 Copyright &copy;<script>
                                     document.write(new Date().getFullYear());
-                                </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                                </script> All rights reserved
+                            </p>
                         </div>
                         <div class="footer__copyright__payment"><img src="<?= ROOT ?>/assets/vendor/img/payment-item.png" alt=""></div>
                     </div>
@@ -69,3 +69,7 @@
         </div>
     </footer>
     <!-- Footer Section End -->
+
+</body>
+
+</html>

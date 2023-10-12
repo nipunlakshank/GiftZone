@@ -1,0 +1,10 @@
+
+.cart_item_img {
+  height: 100px;
+  width: 100px;
+}
+
+.pro-qty{
+    user-select: none;
+    -webkit-user-select: none;
+}

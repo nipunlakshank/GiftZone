@@ -1,12 +1,30 @@
 <?php
 
+// Display errors on(1) /off(0)
+ini_set('display_errors', 1);
+
+
+/**
+ * Session config
+ */
+define("SESSION_LIFETIME", 60 * 60 * 24);   // 24 hours
+// define("SESSION_LIFETIME", 10);  // 10 seconds
+
+
 /**
  * App info
  */
-define("APP_NAME", "Gifts Zone");
+define("APP_NAME", "Gift Zone");
+define("APP_LOGO", "logo2.png");
 define("APP_DESC", "Description");
+define("APP_EMAIL", "giftzone@mail.com");
+define("APP_TEL", "+94 77 1234 567");
+define("APP_ADDRESS", "120, giftzone, Sri Lanka");
 
 
+/**
+ * Server config
+ */
 if($_SERVER['SERVER_NAME'] == 'localhost'){
 
     /**
