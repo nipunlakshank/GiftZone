@@ -8,11 +8,31 @@ class User extends Model
 {
     protected array $errors;
     protected string $table = "users";
-    protected array $allowed_columns = [
+    protected array $insert_columns = [
         'fname',
         'lname',
+        'mobile',
         'email',
         'password',
+        'dob',
+        'role',
+        'token',
+        'otp',
+    ];
+    protected array $select_columns = [
+        'id',
+        'fname',
+        'lname',
+        'mobile',
+        'email',
+        'password',
+        'dob',
+        'role',
+        'token',
+        'otp',
+        'is_active',
+        'created_at',
+        'updated_at',
     ];
 
     public function validate($data): bool
@@ -61,7 +81,7 @@ class User extends Model
             $this->errors['reg_email'] = "Email is required";
         } else if (!filter_var($data['reg_email'], FILTER_VALIDATE_EMAIL)) {
             $this->errors['reg_email'] = "Invalid email";
-        }else if($this->select(['email' => $data['reg_email']])){
+        }else if(!empty($this->select(['email' => $data['reg_email']]))){
             $this->errors['reg_email'] = "Email already exists";
         }
 
@@ -86,6 +106,9 @@ class User extends Model
             $this->errors['email'] = "Email is empty";
         } else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $this->errors['email'] = "Invalid email";
+        }else if(empty($this->selectOne(['email' => $data['email']]))){
+            $this->errors['email'] = "Wrong email or password";
+            $this->errors['password'] = " ";
         }
 
         if (empty($data['password'])) {
@@ -96,10 +119,10 @@ class User extends Model
     protected function insert_hook(array $data): array
     {
 
-        if (isset($data['new_password']))
+        if (!empty($data['new_password']))
             $data['password'] = $data['new_password'];
 
-        if (isset($data['reg_email']))
+        if (!empty($data['reg_email']))
             $data['email'] = $data['reg_email'];
 
         // Sanitizing data

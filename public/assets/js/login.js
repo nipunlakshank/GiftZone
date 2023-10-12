@@ -1,5 +1,10 @@
 
-function toggleForm(index) {
+/**
+ * Switch Form
+ * @param {number} index
+ * @returns {null}
+ */
+function switchForm(index) {
     const box = document.querySelector('.box')
 
     if (index === 1) {
@@ -16,7 +21,10 @@ function toggleForm(index) {
 }
 
 
-// toggle show password
+/**
+ * Toggle show password
+ * @param {number} index
+ */
 function togglePassword(index) {
 
     const a = document.getElementById(`passwd-${index}`);
@@ -37,28 +45,10 @@ function togglePassword(index) {
 
 }
 
-function login() {
-    const email = document.getElementById('email'),
-        passwd = document.getElementById('passwd-1')
 
-    const req = { url: 'http://localhost/giftzone/public/login', body: { email: email.value, password: passwd.value } }
-
-    postData(req)
-}
-
-async function postData(req) {
-    const res = await fetch(req.url, {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(req.body)
-    })
-        .then(res => res.ok ? res.json() : { 'success': false, 'msg': 'Response failed!' })
-        .catch(error => { return { 'success': false, 'msg': error, 'occured_in': 'Catch block of postData()' } })
-
-    // console.log(res)
-}
-
-// Popup message
+/**
+ * Popup message
+ */
 const popup = document.querySelector('.popup-box'),
     popupClose = document.querySelector('.popup-close'),
     popupMsg = document.querySelector('.popup-msg')

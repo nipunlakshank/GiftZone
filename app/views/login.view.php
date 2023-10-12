@@ -134,8 +134,8 @@
 
         <!---- Switch --->
         <div class="switch">
-            <a href="#" class="switch-login" onclick="toggleForm(1)">Login</a>
-            <a href="#" class="switch-register" onclick="toggleForm(2)">Register</a>
+            <a href="#" class="switch-login" onclick="switchForm(1)">Login</a>
+            <a href="#" class="switch-register" onclick="switchForm(2)">Register</a>
             <div class="switch-active"></div>
         </div>
 

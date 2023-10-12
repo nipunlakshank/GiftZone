@@ -3,14 +3,27 @@
 class Home extends Controller
 {
 
-    function index()
+    public function index()
     {
-        $data['var'] = "Data...";
+        $data = $this->loadData();
         $this->view("home", $data);
     }
 
-    function edit()
+    private function loadData(): array
     {
-        echo "Edit";
+        $data = [];
+
+        $category = new Category();
+        $categories = $category->selectAll();
+
+        foreach($categories as $cat){
+            $data['categories'][$cat->id] = $cat->name;
+        }
+
+        $product = new Product();
+        $data['products'] = $product->selectAll();
+
+        return $data;
     }
+
 }

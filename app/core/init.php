@@ -1,7 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
-
 // lazy/auto load models
 spl_autoload_register(function ($class_name) {
     require_once "../app/models/$class_name.php";

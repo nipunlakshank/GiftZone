@@ -4,13 +4,16 @@ class App
 {
     protected string $controller = '_404';
     protected string $method = 'index';
+    public static string $page = '404';
 
     function __construct()
     {
+        validate_session();
         $arr = $this->getURL();
         $filename = "../app/controllers/" . ucfirst($arr[0]) . ".php";
         if (file_exists($filename)) {
             $this->controller = $arr[0];
+            self::$page = ucfirst(strtolower($arr[0]));
         }
         $filename = "../app/controllers/" . $this->controller . ".php";
         require $filename;
@@ -35,4 +38,5 @@ class App
         $arr = explode('/', $url);
         return $arr;
     }
+
 }
