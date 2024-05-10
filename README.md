@@ -1,3 +1,7 @@
 # GiftZone
 
-An e-commerce website developed with php
+## Features
+
+- User authentication
+- Product search, filter
+- Cart functionality
