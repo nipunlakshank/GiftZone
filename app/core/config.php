@@ -25,34 +25,24 @@ define("APP_ADDRESS", "120, giftzone, Sri Lanka");
 /**
  * Server config
  */
-if($_SERVER['SERVER_NAME'] == 'localhost'){
 
-    /**
-     * Config for Local Server
-     */
-
-    // Root path
+// Root path differs per environment
+if ($_SERVER['SERVER_NAME'] == 'localhost') {
     define("ROOT", "http://localhost/giftzone/public");
-
-    // Database config
-    define("DB_HOST", "localhost");
-    define("DB_NAME", "giftzone_db");
-    define("DB_USER", "root");
-    define("DB_PASSWORD", "");
-    define("DB_DRIVER", "mysql");
-}else{
-
-    /**
-     * Config for Live Server
-     */
-
-    // Root path
+} else {
     define("ROOT", "https://www.giftzone.com");
-
-    // Database config
-    define("DB_HOST", "host");
-    define("DB_NAME", "database");
-    define("DB_USER", "username");
-    define("DB_PASSWORD", "password");
-    define("DB_DRIVER", "driver");
 }
+
+/**
+ * Database config
+ *
+ * Credentials are injected via environment variables (see docker-compose.yml).
+ * The fallbacks only apply when running outside Docker without env vars set.
+ * NOTE: php-fpm clears the environment by default, so docker/zz-fpm.conf sets
+ * `clear_env = no` to keep these getenv() calls working inside the container.
+ */
+define("DB_HOST", getenv('DB_HOST') ?: "localhost");
+define("DB_NAME", getenv('DB_NAME') ?: "giftzone_db");
+define("DB_USER", getenv('DB_USER') ?: "root");
+define("DB_PASSWORD", getenv('DB_PASSWORD') !== false ? getenv('DB_PASSWORD') : "");
+define("DB_DRIVER", getenv('DB_DRIVER') ?: "mysql");

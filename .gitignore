@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,linux,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,linux,visualstudiocode
 
+### Project ###
+# Local environment / secrets (DB credentials) — use .env.example as a template
+.env
+
 ### Linux ###
 *~
 

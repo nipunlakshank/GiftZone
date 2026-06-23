@@ -5,7 +5,7 @@ class Database
 
     private function connect(): object
     {
-        $conn_str = DB_DRIVER . ":hostname=" . DB_HOST . ";dbname=" . DB_NAME;
+        $conn_str = DB_DRIVER . ":host=" . DB_HOST . ";dbname=" . DB_NAME;
         try {
             return new PDO($conn_str, DB_USER, DB_PASSWORD);
         } catch (Exception $e) {

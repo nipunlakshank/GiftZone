@@ -1,0 +1,41 @@
+services:
+  web:
+    build: .
+    ports:
+      # Host port must be 80 so the app is reachable at the hardcoded
+      # ROOT (http://localhost/giftzone/public, no port). Change ROOT in
+      # app/core/config.php if you need a different host port.
+      - "80:80"
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_NAME:-giftzone_db}
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      # Live-mount source for development (overrides the image's COPY)
+      - ./:/var/www/html/giftzone
+
+  db:
+    image: mysql:8.0
+    environment:
+      # MySQL root password must match DB_PASSWORD since the app connects as root
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+      MYSQL_DATABASE: ${DB_NAME:-giftzone_db}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      # Mounted as .sql so MySQL's init runs it on first boot
+      # (the .dump extension is ignored by docker-entrypoint-initdb.d)
+      - ./database/giftzone_db.sql.dump:/docker-entrypoint-initdb.d/giftzone_db.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+volumes:
+  db_data:
