@@ -3,11 +3,9 @@
 /**
  * Shop Controller
  */
-
 class Shop extends Controller
 {
-
-    private static string $search_keyword = "";
+    private static string $search_keyword = '';
 
     public function index(): void
     {
@@ -15,26 +13,26 @@ class Shop extends Controller
         $data['cat_id'] = 0;
         $data['filtered_items'] = $data['products'];
         $data = $this->pagination($data);
-        $this->view("shop", $data);
+        $this->view('shop', $data);
     }
 
     public function search(string ...$params): void
     {
         $data = $this->loadData();
 
-        if ($_SERVER['REQUEST_METHOD'] !== "POST") {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             $data['cat_id'] = empty($params[0]) ? 0 : intval($params[0]);
-            $data['keyword'] = empty($params[1]) ? "" : $params[1];
+            $data['keyword'] = empty($params[1]) ? '' : $params[1];
         } else {
             $data['cat_id'] = empty($_POST['cat_id']) ? 0 : intval($_POST['cat_id']);
-            $data['keyword'] = empty($_POST['keyword']) ? "" : $_POST['keyword'];
+            $data['keyword'] = empty($_POST['keyword']) ? '' : $_POST['keyword'];
         }
 
-        $product = new Product();
-        $filtered_by_cat = $data['cat_id'] < 1 ? $product->selectAll() : $product->select(["categories_id" => $data['cat_id']]);
+        $product = new Product;
+        $filtered_by_cat = $data['cat_id'] < 1 ? $product->selectAll() : $product->select(['categories_id' => $data['cat_id']]);
         self::$search_keyword = $data['keyword'];
         show(self::$search_keyword);
-        $filtered_by_keyword = array_filter($filtered_by_cat, "filter");
+        $filtered_by_keyword = array_filter($filtered_by_cat, 'filter');
 
         $data['filtered_items'] = $filtered_by_keyword;
         $data = $this->pagination($data);
@@ -42,7 +40,8 @@ class Shop extends Controller
         $this->view('shop', $data);
     }
 
-    public static function get_keyword(){
+    public static function get_keyword()
+    {
         return self::$search_keyword;
     }
 
@@ -50,6 +49,7 @@ class Shop extends Controller
     {
         if (empty($params)) {
             $this->index();
+
             return;
         }
         $data = $this->loadData();
@@ -58,7 +58,7 @@ class Shop extends Controller
         $cat_id = $cat_id < 0 ? 0 : $cat_id;
         $data['cat_id'] = $cat_id;
 
-        $product = new Product();
+        $product = new Product;
         if ($cat_id == 0) {
             $data['filtered_items'] = $data['products'];
         } else {
@@ -68,22 +68,24 @@ class Shop extends Controller
         unset($params[0]);
         $data = $this->pagination($data, [...$params]);
 
-        $this->view("shop", $data);
+        $this->view('shop', $data);
     }
-
 
     private function loadData(): array
     {
         $data = [];
 
-        $category = new Category();
+        $category = new Category;
         $categories = $category->selectAll();
-        foreach ($categories as $cat) {
+        $data['categories'] = [];
+        $data['products'] = [];
+        foreach ($categories ?? [] as $cat) {
             $data['categories'][$cat->id] = $cat->name;
         }
 
-        $product = new Product();
-        $data['products'] = $product->selectAll();
+        $product = new Product;
+        $data['products'] = $product->selectAll() ?? [];
+
         return $data;
     }
 
@@ -109,11 +111,12 @@ class Shop extends Controller
         $pagination['show_next'] = $pagination['last'] > $pagination['active'] ? 1 : 0;
 
         $data['pagination'] = $pagination;
-        $data['total_items'] = count($data['filtered_items']);
+        $data['total_items'] = count($data['filtered_items'] ?? []);
         $items = array_chunk($data['filtered_items'], 12, true);
-        if (!empty($items)) {
+        if (! empty($items)) {
             $data['filtered_items'] = $items[$pagination['active'] - 1];
         }
+
         return $data;
     }
 }

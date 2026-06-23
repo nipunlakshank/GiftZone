@@ -5,6 +5,10 @@
 # Local environment / secrets (DB credentials) — use .env.example as a template
 .env
 
+# Runtime logs (keep the directory, ignore its contents)
+/logs/*
+!/logs/.gitkeep
+
 ### Linux ###
 *~
 

@@ -11,9 +11,13 @@
                         <span>All Categories</span>
                     </div>
                     <ul>
-                        <?php foreach ($categories as $id => $name) : ?>
-                            <li><a href="<?= ROOT ?>/shop/category/<?= $id ?>"><?= $name ?></a></li>
-                        <?php endforeach; ?>
+                        <?php if (! empty($categories)) { ?>
+                            <?php foreach ($categories as $id => $name) { ?>
+                                <li><a href="<?= ROOT ?>/shop/category/<?= $id ?>"><?= $name ?></a></li>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <li><a href="#">No Categories</a></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -23,19 +27,19 @@
                         <form action="<?= ROOT ?>/shop/search" method="post">
                             <select name="cat_id" class="search_form_category">
                                 <option value="0">All Categories</option>
-                                <?php if (!empty($categories)) : ?>
-                                    <?php foreach ($categories as $id => $name) : ?>
+                                <?php if (! empty($categories)) { ?>
+                                    <?php foreach ($categories as $id => $name) { ?>
                                         <option value="<?= $id ?>"><?= $name ?></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                    <?php } ?>
+                                <?php } ?>
                             </select>
                             <input list="search-list" value="<?= $keyword ?? '' ?>" placeholder="What do yo u need?" dir="ltr" class="search__field" name="keyword" />
                             <datalist id="search-list">
-                                <?php if (!empty($products)) : ?>
-                                    <?php foreach ($products as $product) : ?>
+                                <?php if (! empty($products)) { ?>
+                                    <?php foreach ($products as $product) { ?>
                                         <option value="<?= $product->name ?>"></option>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                    <?php } ?>
+                                <?php } ?>
                             </datalist>
 
                             <button type="submit" class="site-btn">SEARCH</button>
@@ -70,15 +74,15 @@
     <div class="container">
         <div class="row">
             <div class="categories__slider owl-carousel">
-                <?php if (!empty($categories)) : ?>
-                    <?php foreach ($categories as $id => $name) : ?>
+                <?php if (! empty($categories)) { ?>
+                    <?php foreach ($categories as $id => $name) { ?>
                         <div class="col-lg-3">
                             <div class="categories__item set-bg" id="categories-item-<?= $id ?>" data-setbg="<?= ROOT ?>/assets/img/categories/cat-<?= $id ?>.jpg">
                                 <h5><a href="<?= ROOT ?>/shop/category/<?= $id ?>"><?= $name ?></a></h5>
                             </div>
                         </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
             </div>
         </div>
     </div>

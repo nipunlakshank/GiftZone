@@ -67,28 +67,28 @@
                                 <a href="<?= ROOT ?>/#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
                             <div class="header__top__right__user">
-                                <?php if (Auth::logged_in()) : ?>
+                                <?php if (Auth::logged_in()) { ?>
                                     <span><?= Auth::getFname() ?? 'Account' ?></span>
                                     <span class="arrow_carrot-down"></span>
                                     <ul>
-                                        <?php if (Auth::logged_in() && Auth::is_admin()) : ?>
+                                        <?php if (Auth::logged_in() && Auth::is_admin()) { ?>
                                             <li><a href="<?= ROOT ?>/admin">Dashboard</a></li>
-                                        <?php endif; ?>
+                                        <?php } ?>
                                         <li><a href="<?= ROOT ?>/profile">Profile</a></li>
                                         <li><a href="<?= ROOT ?>/cart">Cart</a></li>
                                         <li><a href="<?= ROOT ?>/wishlist">Wishlist</a></li>
                                         <li><a href="<?= ROOT ?>/logout">Logout</a></li>
                                     </ul>
-                                <?php else : ?>
+                                <?php } else { ?>
                                     <span>Guest</span>
-                                <?php endif; ?>
+                                <?php } ?>
                             </div>
                             <div class="header__top__right__auth">
-                                <?php if (Auth::logged_in()) : ?>
+                                <?php if (Auth::logged_in()) { ?>
                                     <a href="<?= ROOT ?>/logout"><i class="fa fa-user"></i> Logout</a>
-                                <?php else : ?>
+                                <?php } else { ?>
                                     <a href="<?= ROOT ?>/login"><i class="fa fa-user"></i> Login</a>
-                                <?php endif; ?>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="<?= ROOT ?>"><img src="<?=ROOT?>/assets/img/logo/<?= APP_LOGO ?>" alt="<?= APP_NAME ?>"></a> <!-- Provided logo is not suitable here -->
+                        <a href="<?= ROOT ?>"><img src="<?= ROOT?>/assets/img/logo/<?= APP_LOGO ?>" alt="<?= APP_NAME ?>"></a> <!-- Provided logo is not suitable here -->
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -126,7 +126,7 @@
                             <li><a href="<?= ROOT ?>/wishlist"><i class="fa fa-heart"></i> <span>1</span></a></li>
                             <li><a href="<?= ROOT ?>/cart"><i class="fa fa-shopping-bag"></i> <span class="cart_count"><?= count(CartData::getItems() ?? []) ?></span></a></li>
                         </ul>
-                        <div class="header__cart__price">total: <span>Rs. <?= str_replace('.00', '', number_format(CartData::getTotal(), 2)) ?></span></div>
+                        <div class="header__cart__price">total: <span>Rs. <?= str_replace('.00', '', number_format(CartData::getTotal() ?? 0, 2)) ?></span></div>
                     </div>
                 </div>
             </div>

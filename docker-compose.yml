@@ -30,7 +30,7 @@ services:
       - db_data:/var/lib/mysql
       # Mounted as .sql so MySQL's init runs it on first boot
       # (the .dump extension is ignored by docker-entrypoint-initdb.d)
-      - ./database/giftzone_db.sql.dump:/docker-entrypoint-initdb.d/giftzone_db.sql:ro
+      - ./database/giftzone_db.sql:/docker-entrypoint-initdb.d/giftzone_db.sql:ro
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p$$MYSQL_ROOT_PASSWORD"]
       interval: 5s
