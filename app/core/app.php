@@ -15,7 +15,7 @@ class App
             $this->controller = $arr[0];
             self::$page = ucfirst(strtolower($arr[0]));
         }
-        $filename = "../app/controllers/" . $this->controller . ".php";
+        $filename = "../app/controllers/" . ucfirst($this->controller) . ".php";
         require $filename;
 
         $myController = new $this->controller();
