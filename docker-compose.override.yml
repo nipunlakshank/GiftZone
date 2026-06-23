@@ -1,0 +1,11 @@
+# Local development overrides — auto-merged by `docker compose` when run from
+# this directory. Coolify invokes its compose file explicitly (`-f`) and does
+# NOT merge this file, so these host-port publishes never reach the server.
+services:
+  web:
+    ports:
+      - "80:80"
+
+  db:
+    ports:
+      - "3306:3306"

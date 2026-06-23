@@ -1,11 +1,17 @@
 services:
   web:
     build: .
-    ports:
-      # Host port must match PUBLIC_ROOT (defaults to http://localhost, no
-      # port). Override PUBLIC_ROOT below if you change this mapping.
-      - "80:80"
+    # No host port publishing: on Coolify, Traefik owns ports 80/443 and routes
+    # by domain. `expose` makes port 80 reachable on the internal proxy network
+    # only. For local host access, see docker-compose.override.yml.
+    expose:
+      - "80"
     environment:
+      # Coolify magic var: it sets the app's public URL from the domain you
+      # configure in the UI and wires up Traefik routing to the exposed port.
+      SERVICE_FQDN_WEB_80: ${SERVICE_FQDN_WEB:-/}
+      # PUBLIC_ROOT must match the domain Coolify serves this on (e.g.
+      # https://giftzone.example.com). Defaults to localhost for dev.
       PUBLIC_ROOT: ${PUBLIC_ROOT:-http://localhost}
       DB_HOST: db
       DB_NAME: ${DB_NAME:-giftzone_db}
@@ -24,8 +30,9 @@ services:
       # MySQL root password must match DB_PASSWORD since the app connects as root
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
       MYSQL_DATABASE: ${DB_NAME:-giftzone_db}
-    ports:
-      - "3306:3306"
+    # No host port publishing: the web container reaches the db over the
+    # internal compose network at host `db:3306`. Publishing 3306 would expose
+    # MySQL on the server's public IP. For local DB access, see the override.
     volumes:
       - db_data:/var/lib/mysql
       # Mounted as .sql so MySQL's init runs it on first boot
