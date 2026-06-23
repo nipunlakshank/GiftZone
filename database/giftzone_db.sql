@@ -42,16 +42,6 @@ CREATE TABLE `cart` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cart`
---
-
-LOCK TABLES `cart` WRITE;
-/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (1,1,'2023-09-04 06:04:42',NULL),(2,2,'2023-09-05 08:19:33',NULL),(3,4,'2023-09-05 12:46:18',NULL),(4,5,'2023-10-12 20:57:06',NULL),(5,6,'2024-12-06 16:54:57',NULL);
-/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `cart_items`
 --
 
@@ -72,16 +62,6 @@ CREATE TABLE `cart_items` (
   CONSTRAINT `fk_cart_has_products_products1` FOREIGN KEY (`products_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cart_items`
---
-
-LOCK TABLES `cart_items` WRITE;
-/*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
-INSERT INTO `cart_items` VALUES (10,1,4,1,'2023-09-04 19:59:05','2023-09-09 07:07:12'),(11,1,63,1,'2023-09-04 19:59:14',NULL),(12,1,62,1,'2023-09-04 19:59:16',NULL),(13,1,46,1,'2023-09-04 19:59:20',NULL),(15,1,74,1,'2023-09-04 19:59:30',NULL),(16,1,73,2,'2023-09-04 19:59:31','2023-09-04 20:03:20'),(17,1,21,4,'2023-09-04 19:59:40','2023-09-05 13:44:26'),(18,1,35,1,'2023-09-04 19:59:47','2023-09-05 13:44:24'),(34,2,13,1,'2023-09-05 08:33:07',NULL),(35,2,12,1,'2023-09-05 08:33:08',NULL),(36,2,14,1,'2023-09-05 08:33:15',NULL),(40,2,11,1,'2023-09-05 09:00:53',NULL),(41,3,46,5,'2023-09-05 12:46:41','2023-09-05 12:49:28'),(42,3,47,0,'2023-09-05 12:46:45','2023-09-05 12:49:30'),(43,3,48,1,'2023-09-05 12:46:49',NULL),(44,3,53,1,'2023-09-05 12:46:51',NULL),(46,3,71,1,'2023-09-05 12:47:01',NULL),(47,3,72,2,'2023-09-05 12:47:04','2023-09-05 12:49:24'),(48,3,77,2,'2023-09-05 12:47:08','2023-09-05 12:49:21');
-/*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `categories`
@@ -164,16 +144,6 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'nipun@gmail.com','$2y$10$2.Ts/UoqZx/aFyGGx6qjoOaKj1qmMU6QYs83OIdpXQE3p3RV7XG9m','Nipun','Lakshan',NULL,NULL,'customer',NULL,NULL,1,'2023-09-03 20:49:01',NULL),(2,'test@gmail.com','$2y$10$4TzGh3Y8EkwGCeE8A4RjNugWulIcVV02hISfu2VfByv1wgQ.DIO5q','Test','Test',NULL,NULL,'customer',NULL,NULL,1,'2023-09-05 08:19:17',NULL),(3,'test2@gmail.com','$2y$10$gSaR5ECz2QVVO/5v.BCvYuG6NZxNipzPYbX0MpGUlP.EYWkkeETxa','Test','Test',NULL,NULL,'customer',NULL,NULL,1,'2023-09-05 12:43:49',NULL),(4,'nipun2@gmail.com','$2y$10$TTc.3Pah9KD99L3fIm3Ru.sTYSuCdAlbGF5nJ3APa9nP0nbEQYAj6','Nipun','Lakshan',NULL,NULL,'customer',NULL,NULL,1,'2023-09-05 12:46:08',NULL),(5,'nipunlakshankumara@gmail.com','$2y$10$I9YWyu2FSdhXtzfy0PxqK.ZIzaUO8DDBTu25VbVv1X9QLEIABU/oS','Nipun','Lakshan',NULL,NULL,'customer',NULL,NULL,1,'2023-10-12 20:56:39',NULL),(6,'lakshan@gmail.com','$2y$12$W1iEhRuKXlkiqoENLzjX6eQeUqhRKwzyQQ1pkULUCxSYMRnZTy9kK','Nipun','Lakshan',NULL,NULL,'customer',NULL,NULL,1,'2024-12-06 16:54:44',NULL);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'giftzone_db'
