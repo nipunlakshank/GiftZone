@@ -2,6 +2,10 @@
 
 function show(mixed $param): void
 {
+    if (is_array($param) || is_object($param)) {
+        print_r(json_encode($param));
+        return;
+    }
     echo "<pre>";
     print_r($param);
     echo "</pre>";
