@@ -20,9 +20,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      # Live-mount source for development (overrides the image's COPY)
-      - ./:/var/www/html
+    # No source bind-mount here: in production (Coolify) the app code lives in
+    # the image via the Dockerfile's `COPY . /var/www/html/`. Mounting ./ would
+    # shadow that with the host dir. The dev live-mount is in the override.
 
   db:
     image: mysql:8.0

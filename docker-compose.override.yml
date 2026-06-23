@@ -5,6 +5,10 @@ services:
   web:
     ports:
       - "80:80"
+    volumes:
+      # Live-mount source for local dev (shadows the image's COPY so edits
+      # are reflected without a rebuild). Not used on Coolify.
+      - ./:/var/www/html
 
   db:
     ports:
