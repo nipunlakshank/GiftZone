@@ -2,11 +2,11 @@ services:
   web:
     build: .
     ports:
-      # Host port must be 80 so the app is reachable at the hardcoded
-      # ROOT (http://localhost/giftzone/public, no port). Change ROOT in
-      # app/core/config.php if you need a different host port.
+      # Host port must match PUBLIC_ROOT (defaults to http://localhost/public,
+      # no port). Override PUBLIC_ROOT below if you change this mapping.
       - "80:80"
     environment:
+      PUBLIC_ROOT: ${PUBLIC_ROOT:-http://localhost/public}
       DB_HOST: db
       DB_NAME: ${DB_NAME:-giftzone_db}
       DB_USER: ${DB_USER:-root}
@@ -16,7 +16,7 @@ services:
         condition: service_healthy
     volumes:
       # Live-mount source for development (overrides the image's COPY)
-      - ./:/var/www/html/giftzone
+      - ./:/var/www/html
 
   db:
     image: mysql:8.0

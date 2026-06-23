@@ -26,12 +26,12 @@ define("APP_ADDRESS", "120, giftzone, Sri Lanka");
  * Server config
  */
 
-// Root path differs per environment
-if ($_SERVER['SERVER_NAME'] == 'localhost') {
-    define("ROOT", "http://localhost/giftzone/public");
-} else {
-    define("ROOT", "https://www.giftzone.com");
-}
+// Root path — injectable via the PUBLIC_ROOT env var (see docker-compose.yml);
+// falls back to per-environment defaults when running outside Docker.
+$default_root = ($_SERVER['SERVER_NAME'] == 'localhost')
+    ? "http://localhost/public"
+    : "https://www.giftzone.com";
+define("ROOT", getenv('PUBLIC_ROOT') ?: $default_root);
 
 /**
  * Database config

@@ -2,28 +2,26 @@
 
 class Home extends Controller
 {
-
     public function index()
     {
         $data = $this->loadData();
-        $this->view("home", $data);
+        $this->view('home', $data);
     }
 
     private function loadData(): array
     {
         $data = [];
 
-        $category = new Category();
+        $category = new Category;
         $categories = $category->selectAll();
 
-        foreach($categories as $cat){
+        foreach ($categories ?? [] as $cat) {
             $data['categories'][$cat->id] = $cat->name;
         }
 
-        $product = new Product();
+        $product = new Product;
         $data['products'] = $product->selectAll();
 
         return $data;
     }
-
 }
