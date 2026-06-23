@@ -11,8 +11,8 @@ COPY docker/nginx.conf /etc/nginx/http.d/default.conf
 # Keep container env vars visible to PHP (php-fpm clears env by default)
 COPY docker/zz-fpm.conf /usr/local/etc/php-fpm.d/zz-fpm.conf
 
-# App lives at the web root; it is served from the public/ front controller
-# (ROOT defaults to http://localhost/public, overridable via PUBLIC_ROOT)
+# App is copied to /var/www/html; nginx serves the public/ front controller as
+# its document root (ROOT defaults to http://localhost, override via PUBLIC_ROOT)
 COPY . /var/www/html/
 
 RUN chown -R www-data:www-data /var/www/html

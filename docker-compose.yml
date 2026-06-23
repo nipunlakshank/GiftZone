@@ -2,11 +2,11 @@ services:
   web:
     build: .
     ports:
-      # Host port must match PUBLIC_ROOT (defaults to http://localhost/public,
-      # no port). Override PUBLIC_ROOT below if you change this mapping.
+      # Host port must match PUBLIC_ROOT (defaults to http://localhost, no
+      # port). Override PUBLIC_ROOT below if you change this mapping.
       - "80:80"
     environment:
-      PUBLIC_ROOT: ${PUBLIC_ROOT:-http://localhost/public}
+      PUBLIC_ROOT: ${PUBLIC_ROOT:-http://localhost}
       DB_HOST: db
       DB_NAME: ${DB_NAME:-giftzone_db}
       DB_USER: ${DB_USER:-root}
