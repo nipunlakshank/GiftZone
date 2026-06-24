@@ -15,7 +15,9 @@ services:
       PUBLIC_ROOT: ${PUBLIC_ROOT:-http://localhost}
       DB_HOST: db
       DB_NAME: ${DB_NAME:-giftzone_db}
-      DB_USER: ${DB_USER:-root}
+      # App connects as a dedicated non-root user (created by the db service
+      # below). Never use root for the app on a public deploy.
+      DB_USER: ${DB_USER:-giftzone}
       DB_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
     depends_on:
       db:
@@ -27,9 +29,14 @@ services:
   db:
     image: mysql:8.0
     environment:
-      # MySQL root password must match DB_PASSWORD since the app connects as root
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
+      # Root password is a separate admin secret (the image requires one). The
+      # app does NOT use root — it connects as MYSQL_USER below.
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD in .env}
       MYSQL_DATABASE: ${DB_NAME:-giftzone_db}
+      # On first boot the image creates this user with full grants on
+      # MYSQL_DATABASE only. Must match the app's DB_USER/DB_PASSWORD above.
+      MYSQL_USER: ${DB_USER:-giftzone}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?set DB_PASSWORD in .env}
     # No host port publishing: the web container reaches the db over the
     # internal compose network at host `db:3306`. Publishing 3306 would expose
     # MySQL on the server's public IP. For local DB access, see the override.
