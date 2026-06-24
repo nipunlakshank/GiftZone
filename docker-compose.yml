@@ -27,7 +27,11 @@ services:
     # shadow that with the host dir. The dev live-mount is in the override.
 
   db:
-    image: mysql:8.0
+    # Custom image bakes in database/giftzone_db.sql as an init script. We don't
+    # bind-mount the seed because Coolify doesn't reliably deliver repo-file
+    # bind mounts into containers (which left the schema empty on deploy).
+    build:
+      context: ./database
     environment:
       # Root password is a separate admin secret (the image requires one). The
       # app does NOT use root — it connects as MYSQL_USER below.
@@ -42,9 +46,6 @@ services:
     # MySQL on the server's public IP. For local DB access, see the override.
     volumes:
       - db_data:/var/lib/mysql
-      # Mounted as .sql so MySQL's init runs it on first boot
-      # (the .dump extension is ignored by docker-entrypoint-initdb.d)
-      - ./database/giftzone_db.sql:/docker-entrypoint-initdb.d/giftzone_db.sql:ro
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p$$MYSQL_ROOT_PASSWORD"]
       interval: 5s

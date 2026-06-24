@@ -24,6 +24,15 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'fec3022e-949b-11ef-9d37-e20057b790ad:1-6597';
 
 --
+-- Create and select the target database so this dump is self-contained
+-- (the original mysqldump omitted these). Makes the seed work regardless of
+-- how/where it's loaded, not just via the entrypoint's $MYSQL_DATABASE.
+--
+
+CREATE DATABASE IF NOT EXISTS `giftzone_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `giftzone_db`;
+
+--
 -- Table structure for table `cart`
 --
 
