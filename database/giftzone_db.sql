@@ -14,14 +14,14 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
-SET @@SESSION.SQL_LOG_BIN= 0;
 
 --
--- GTID state at the beginning of the backup 
+-- Select the target database so this dump loads into the right schema even
+-- when restored without a db named on the command line. The database itself
+-- is expected to already exist (created by the entrypoint's $MYSQL_DATABASE);
+-- we deliberately omit CREATE DATABASE so a least-privilege, db-scoped user
+-- (e.g. Coolify's non-root `mysql` user) can run this without global CREATE.
 --
-
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'fec3022e-949b-11ef-9d37-e20057b790ad:1-6597';
 
 --
 -- Create and select the target database so this dump is self-contained
@@ -157,7 +157,6 @@ CREATE TABLE `users` (
 --
 -- Dumping routines for database 'giftzone_db'
 --
-SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
